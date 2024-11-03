@@ -159,6 +159,12 @@ class Kamal::Configuration::Role
     def initialize_specialized_proxy
       proxy_specializations = specializations["proxy"]
 
+      puts "==========================="
+      puts proxy_specializations
+      puts proxy_specializations != false
+      puts !!proxy_specializations
+      puts "==========================="
+      
       if primary?
         # only false means no proxy for non-primary roles
         @running_proxy = proxy_specializations != false
