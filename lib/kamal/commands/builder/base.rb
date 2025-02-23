@@ -13,9 +13,9 @@ class Kamal::Commands::Builder::Base < Kamal::Commands::Base
     docker :image, :rm, "--force", config.absolute_image
   end
 
-  def push(export_action = "registry,registry.insecure=true", tag_as_dirty: false)
+  def push(export_action = "registry", tag_as_dirty: false)
     docker :buildx, :build,
-      "--output=type=#{export_action}",
+      "--output=type=#{export_action}#{',registry.insecure=true' if export_action == 'registry'}",
       *platform_options(arches),
       *([ "--builder", builder_name ] unless docker_driver?),
       *build_tag_options(tag_as_dirty: tag_as_dirty),
