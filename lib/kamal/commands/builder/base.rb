@@ -13,7 +13,7 @@ class Kamal::Commands::Builder::Base < Kamal::Commands::Base
     docker :image, :rm, "--force", config.absolute_image
   end
 
-  def push(export_action = "registry", tag_as_dirty: false)
+  def push(export_action = "registry,registry.insecure=true", tag_as_dirty: false)
     docker :buildx, :build,
       "--output=type=#{export_action}",
       *platform_options(arches),
